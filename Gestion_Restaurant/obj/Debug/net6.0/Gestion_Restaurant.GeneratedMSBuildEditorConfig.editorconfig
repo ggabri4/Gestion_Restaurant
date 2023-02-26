@@ -52,6 +52,26 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[E:/ggabri4/Documents/COURS Master 1/ASI/Gestion_Restaurant/Gestion_Restaurant/Pages/Produits/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVpdHNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/ggabri4/Documents/COURS Master 1/ASI/Gestion_Restaurant/Gestion_Restaurant/Pages/Produits/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVpdHNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/ggabri4/Documents/COURS Master 1/ASI/Gestion_Restaurant/Gestion_Restaurant/Pages/Produits/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVpdHNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/ggabri4/Documents/COURS Master 1/ASI/Gestion_Restaurant/Gestion_Restaurant/Pages/Produits/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVpdHNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/ggabri4/Documents/COURS Master 1/ASI/Gestion_Restaurant/Gestion_Restaurant/Pages/Produits/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVpdHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/ggabri4/Documents/COURS Master 1/ASI/Gestion_Restaurant/Gestion_Restaurant/Pages/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

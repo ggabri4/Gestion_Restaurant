@@ -4,20 +4,21 @@
 @{
     ViewData["Title"] = "Index";
 }
+<div class="row align-items-start">
+    <div class="col-8">
+        <h1>Index</h1>
 
-<h1>Index</h1>
-
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-
-<form>
-    <p>
-        Statut commande: <input type="text" name="SearchString">
-        <input type="submit" value="Filter" />
-    </p>
-</form>
-
+        <p>
+            <a asp-page="Create">Create New</a>
+        </p>
+    </div>
+    <form class="col-4">
+        <div class="input-group mb-3 pt-3">
+            <input type="text" name="SearchString" class="form-control" placeholder="Chercher une commande...">
+            <input type="submit" value="Chercher" class="btn btn-primary"/>
+        </div>
+    </form>
+</div>
 <table class="table">
     <thead>
         <tr>

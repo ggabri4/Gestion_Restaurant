@@ -1,0 +1,45 @@
+﻿@page
+@model Gestion_Restaurant.Pages.Produits.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Produit</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Produit.Id" />
+            <div class="form-group">
+                <label asp-for="Produit.Description" class="control-label"></label>
+                <input asp-for="Produit.Description" class="form-control" />
+                <span asp-validation-for="Produit.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Produit.Prix" class="control-label"></label>
+                <input asp-for="Produit.Prix" class="form-control" />
+                <span asp-validation-for="Produit.Prix" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check form-switch my-2">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Produit.Dispo" /> @Html.DisplayNameFor(model => model.Produit.Dispo)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
