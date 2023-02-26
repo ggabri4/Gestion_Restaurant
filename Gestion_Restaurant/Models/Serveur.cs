@@ -15,6 +15,6 @@ namespace Gestion_Restaurant.Models
 
         // Clé étrangère vers la formation suivie
         public int? CommandeEtablitID { get; set; }
-        public Commande CommandeEtablit { get; set; }
+        public Commande? CommandeEtablit { get; set; }
     }
 }

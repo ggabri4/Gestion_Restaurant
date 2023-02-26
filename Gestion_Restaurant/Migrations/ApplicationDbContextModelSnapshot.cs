@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Gestion_Restaurant.Data.Migrations
+namespace Gestion_Restaurant.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -41,7 +41,7 @@ namespace Gestion_Restaurant.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PrepareCommandeId")
+                    b.Property<int?>("PrepareCommandeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -65,12 +65,6 @@ namespace Gestion_Restaurant.Data.Migrations
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("FactureRattacherID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("FactureRattacherId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("NumeroCommande")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -83,8 +77,6 @@ namespace Gestion_Restaurant.Data.Migrations
 
                     b.HasIndex("CommandeId");
 
-                    b.HasIndex("FactureRattacherId");
-
                     b.ToTable("Commande");
                 });
 
@@ -94,10 +86,17 @@ namespace Gestion_Restaurant.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int?>("CommandeFacturerID")
+                        .HasColumnType("int");
+
                     b.Property<double>("Montant")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CommandeFacturerID")
+                        .IsUnique()
+                        .HasFilter("[CommandeFacturerID] IS NOT NULL");
 
                     b.ToTable("Facture");
                 });
@@ -110,11 +109,11 @@ namespace Gestion_Restaurant.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("FactureAPayerID")
-                        .HasColumnType("int");
-
                     b.Property<Guid>("FactureAPayerId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<double>("Montant")
+                        .HasColumnType("float");
 
                     b.Property<string>("MoyenPaiement")
                         .IsRequired()
@@ -403,9 +402,7 @@ namespace Gestion_Restaurant.Data.Migrations
                 {
                     b.HasOne("Gestion_Restaurant.Models.Commande", "PrepareCommande")
                         .WithMany("CommandePreparerPar")
-                        .HasForeignKey("PrepareCommandeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PrepareCommandeId");
 
                     b.Navigation("PrepareCommande");
                 });
@@ -415,14 +412,15 @@ namespace Gestion_Restaurant.Data.Migrations
                     b.HasOne("Gestion_Restaurant.Models.Commande", null)
                         .WithMany("CommandesPasser")
                         .HasForeignKey("CommandeId");
+                });
 
-                    b.HasOne("Gestion_Restaurant.Models.Facture", "FactureRattacher")
-                        .WithMany("FacturationCommande")
-                        .HasForeignKey("FactureRattacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            modelBuilder.Entity("Gestion_Restaurant.Models.Facture", b =>
+                {
+                    b.HasOne("Gestion_Restaurant.Models.Commande", "CommandeFacturer")
+                        .WithOne("FactureRattacher")
+                        .HasForeignKey("Gestion_Restaurant.Models.Facture", "CommandeFacturerID");
 
-                    b.Navigation("FactureRattacher");
+                    b.Navigation("CommandeFacturer");
                 });
 
             modelBuilder.Entity("Gestion_Restaurant.Models.Paiement", b =>
@@ -512,12 +510,12 @@ namespace Gestion_Restaurant.Data.Migrations
                     b.Navigation("CommandeServiPar");
 
                     b.Navigation("CommandesPasser");
+
+                    b.Navigation("FactureRattacher");
                 });
 
             modelBuilder.Entity("Gestion_Restaurant.Models.Facture", b =>
                 {
-                    b.Navigation("FacturationCommande");
-
                     b.Navigation("PaiementCommande");
                 });
 #pragma warning restore 612, 618

@@ -9,13 +9,13 @@ namespace Gestion_Restaurant.Models
         [Required]
         public Double Montant { get; set; }
 
+
         // Clé étrangère 
-        //public int? CommandeFacturerID { get; set; }
-        //public Commande CommandeFacturer { get; set; }
+        public int? CommandeFacturerID { get; set; }
+        public Commande CommandeFacturer { get; set; }
 
 
         //lien de navigation
-        public ICollection<Commande> FacturationCommande { get; set; }
         public ICollection<Paiement> PaiementCommande { get; set; }
     }
 }

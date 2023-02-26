@@ -9,8 +9,9 @@ namespace Gestion_Restaurant.Models
         [Required]
         public string MoyenPaiement { get; set; }
 
+        public double Montant { get; set; }
+
         //clé étrangère
-        public int? FactureAPayerID { get; set; }
         public Facture FactureAPayer { get; set; }
     }
 }

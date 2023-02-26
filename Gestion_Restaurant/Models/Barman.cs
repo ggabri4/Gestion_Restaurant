@@ -14,6 +14,6 @@ namespace Gestion_Restaurant.Models
         public int? CommandeEnChargeID { get; set; }
 
         //lien de navigation
-        public Commande PrepareCommande { get; set; }
+        public Commande? PrepareCommande { get; set; }
     }
 }

@@ -22,16 +22,12 @@ namespace Gestion_Restaurant.Models
         public string Statut { get; set; }
 
         //clé étrangère
-
-        public int? FactureRattacherID { get; set; }
-        public Facture FactureRattacher { get; set; }
+        public Facture? FactureRattacher { get; set; }
 
         //lien de navigation
         public ICollection<Commande> CommandesPasser { get; set; }
         public ICollection<Barman> CommandePreparerPar { get; set; }
         public ICollection<Serveur> CommandeServiPar { get; set; }
 
-        
-        //public ICollection<Facture> FactureAttribuer { get; set; }
     }
 }

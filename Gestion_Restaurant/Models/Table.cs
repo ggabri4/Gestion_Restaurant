@@ -8,6 +8,6 @@
         //Clé étrangère vers la commande rattaché
 
         public int? CommandeRattacheID { get; set; }
-        public Commande CommandeRattache { get; set; }
+        public Commande? CommandeRattache { get; set; }
     }
 }

@@ -9,17 +9,17 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Gestion_Restaurant.Data.Migrations
+namespace Gestion_Restaurant.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230224144333_CreationMCD")]
-    partial class CreationMCD
+    [Migration("20230226160810_InitDB")]
+    partial class InitDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.10")
+                .HasAnnotation("ProductVersion", "6.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -32,6 +32,9 @@ namespace Gestion_Restaurant.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int?>("CommandeEnChargeID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nom")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -40,7 +43,12 @@ namespace Gestion_Restaurant.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PrepareCommandeId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PrepareCommandeId");
 
                     b.ToTable("Barman");
                 });
@@ -53,14 +61,23 @@ namespace Gestion_Restaurant.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int?>("CommandeId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("NumeroCommande")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Statut")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CommandeId");
 
                     b.ToTable("Commande");
                 });
@@ -71,10 +88,17 @@ namespace Gestion_Restaurant.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int?>("CommandeFacturerID")
+                        .HasColumnType("int");
+
                     b.Property<double>("Montant")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CommandeFacturerID")
+                        .IsUnique()
+                        .HasFilter("[CommandeFacturerID] IS NOT NULL");
 
                     b.ToTable("Facture");
                 });
@@ -87,6 +111,9 @@ namespace Gestion_Restaurant.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<Guid>("FactureAPayerId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<double>("Montant")
                         .HasColumnType("float");
 
@@ -95,6 +122,8 @@ namespace Gestion_Restaurant.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FactureAPayerId");
 
                     b.ToTable("Paiement");
                 });
@@ -130,6 +159,9 @@ namespace Gestion_Restaurant.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int?>("CommandeEtablitID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nom")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -139,6 +171,8 @@ namespace Gestion_Restaurant.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CommandeEtablitID");
 
                     b.ToTable("Serveur");
                 });
@@ -151,10 +185,15 @@ namespace Gestion_Restaurant.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int?>("CommandeRattacheID")
+                        .HasColumnType("int");
+
                     b.Property<bool>("Etat")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CommandeRattacheID");
 
                     b.ToTable("Table");
                 });
@@ -361,6 +400,60 @@ namespace Gestion_Restaurant.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Gestion_Restaurant.Models.Barman", b =>
+                {
+                    b.HasOne("Gestion_Restaurant.Models.Commande", "PrepareCommande")
+                        .WithMany("CommandePreparerPar")
+                        .HasForeignKey("PrepareCommandeId");
+
+                    b.Navigation("PrepareCommande");
+                });
+
+            modelBuilder.Entity("Gestion_Restaurant.Models.Commande", b =>
+                {
+                    b.HasOne("Gestion_Restaurant.Models.Commande", null)
+                        .WithMany("CommandesPasser")
+                        .HasForeignKey("CommandeId");
+                });
+
+            modelBuilder.Entity("Gestion_Restaurant.Models.Facture", b =>
+                {
+                    b.HasOne("Gestion_Restaurant.Models.Commande", "CommandeFacturer")
+                        .WithOne("FactureRattacher")
+                        .HasForeignKey("Gestion_Restaurant.Models.Facture", "CommandeFacturerID");
+
+                    b.Navigation("CommandeFacturer");
+                });
+
+            modelBuilder.Entity("Gestion_Restaurant.Models.Paiement", b =>
+                {
+                    b.HasOne("Gestion_Restaurant.Models.Facture", "FactureAPayer")
+                        .WithMany("PaiementCommande")
+                        .HasForeignKey("FactureAPayerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FactureAPayer");
+                });
+
+            modelBuilder.Entity("Gestion_Restaurant.Models.Serveur", b =>
+                {
+                    b.HasOne("Gestion_Restaurant.Models.Commande", "CommandeEtablit")
+                        .WithMany("CommandeServiPar")
+                        .HasForeignKey("CommandeEtablitID");
+
+                    b.Navigation("CommandeEtablit");
+                });
+
+            modelBuilder.Entity("Gestion_Restaurant.Models.Table", b =>
+                {
+                    b.HasOne("Gestion_Restaurant.Models.Commande", "CommandeRattache")
+                        .WithMany()
+                        .HasForeignKey("CommandeRattacheID");
+
+                    b.Navigation("CommandeRattache");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -410,6 +503,22 @@ namespace Gestion_Restaurant.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Gestion_Restaurant.Models.Commande", b =>
+                {
+                    b.Navigation("CommandePreparerPar");
+
+                    b.Navigation("CommandeServiPar");
+
+                    b.Navigation("CommandesPasser");
+
+                    b.Navigation("FactureRattacher");
+                });
+
+            modelBuilder.Entity("Gestion_Restaurant.Models.Facture", b =>
+                {
+                    b.Navigation("PaiementCommande");
                 });
 #pragma warning restore 612, 618
         }
