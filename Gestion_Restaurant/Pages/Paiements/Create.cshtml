@@ -15,7 +15,12 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Paiement.MoyenPaiement" class="control-label"></label>
-                <input asp-for="Paiement.MoyenPaiement" class="form-control" />
+                <select asp-for="Paiement.MoyenPaiement" class="form-control">
+                    <option value="Carte bleu">Carte bleu</option>
+                    <option value="Espèce">Espèce</option>
+                    <option value="Chèque">Chèque</option>
+                    <option value="Ticket restaurant">Ticket restaurant</option>
+                </select>
                 <span asp-validation-for="Paiement.MoyenPaiement" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -23,6 +28,7 @@
                 <input asp-for="Paiement.Montant" class="form-control" />
                 <span asp-validation-for="Paiement.Montant" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
