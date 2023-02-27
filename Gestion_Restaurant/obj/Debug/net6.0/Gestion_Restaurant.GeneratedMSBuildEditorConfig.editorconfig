@@ -48,6 +48,26 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[E:/ggabri4/Documents/COURS Master 1/ASI/Gestion_Restaurant/Gestion_Restaurant/Pages/Paiements/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGFpZW1lbnRzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/ggabri4/Documents/COURS Master 1/ASI/Gestion_Restaurant/Gestion_Restaurant/Pages/Paiements/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGFpZW1lbnRzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/ggabri4/Documents/COURS Master 1/ASI/Gestion_Restaurant/Gestion_Restaurant/Pages/Paiements/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGFpZW1lbnRzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/ggabri4/Documents/COURS Master 1/ASI/Gestion_Restaurant/Gestion_Restaurant/Pages/Paiements/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGFpZW1lbnRzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/ggabri4/Documents/COURS Master 1/ASI/Gestion_Restaurant/Gestion_Restaurant/Pages/Paiements/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGFpZW1lbnRzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/ggabri4/Documents/COURS Master 1/ASI/Gestion_Restaurant/Gestion_Restaurant/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
