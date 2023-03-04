@@ -19,6 +19,11 @@
                 </label>
             </div>
             <div class="form-group">
+                <label asp-for="Table.NbPlace" class="control-label"></label>
+                <input asp-for="Table.NbPlace" class="form-control" />
+                <span asp-validation-for="Table.NbPlace" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Table.CommandeRattacheID" class="control-label"></label>
                 <select asp-for="Table.CommandeRattacheID" class ="form-control" asp-items="ViewBag.CommandeRattacheID"></select>
             </div>

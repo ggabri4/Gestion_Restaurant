@@ -12,10 +12,19 @@ namespace Gestion_Restaurant.Models
         public string Prenom { get; set; }
 
         // Clé étrangère
-        [Display(Name = "Commande En Charge")]
+        [Display(Name = "Commande Rattachée")]
         public int? CommandeEnChargeID { get; set; }
 
         //lien de navigation
         public Commande? PrepareCommande { get; set; }
+
+        [Display(Name = "Nom complet")]
+        public string NomComplet
+        {
+            get
+            {
+                return Nom + " " + Prenom;
+            }
+        }
     }
 }

@@ -21,12 +21,17 @@ namespace Gestion_Restaurant.Pages.Commandes
 
         public IActionResult OnGet()
         {
+            ViewData["BarmanId"] = new SelectList(_context.Barman, "Id", "NomComplet");
+            ViewData["TableId"] = new SelectList(_context.Table, "Id", "TableInfos");
+
             return Page();
         }
 
         [BindProperty]
         public Commande Commande { get; set; }
-        
+        public Table Table { get; set; }
+        public Barman Barman { get; set; }
+
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "/Zs2uLP46r0j833j9ro7A5hVEOeMHlGB8jyatXy1u+0=",
+  "Hash": "8a35F88NVD2bv+CTYrcdaGU/QqcbFutlb6Zyf8Hm6yk=",
   "Source": "Gestion_Restaurant",
   "BasePath": "_content/Gestion_Restaurant",
   "Mode": "Default",
@@ -1103,6 +1103,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "E:\\ggabri4\\Documents\\COURS Master 1\\ASI\\Gestion_Restaurant\\Gestion_Restaurant\\wwwroot\\img\\cows.jpeg",
+      "SourceId": "Gestion_Restaurant",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\ggabri4\\Documents\\COURS Master 1\\ASI\\Gestion_Restaurant\\Gestion_Restaurant\\wwwroot\\",
+      "BasePath": "_content/Gestion_Restaurant",
+      "RelativePath": "img/cows.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\cows.jpeg"
+    },
+    {
+      "Identity": "E:\\ggabri4\\Documents\\COURS Master 1\\ASI\\Gestion_Restaurant\\Gestion_Restaurant\\wwwroot\\img\\environnement.png",
+      "SourceId": "Gestion_Restaurant",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\ggabri4\\Documents\\COURS Master 1\\ASI\\Gestion_Restaurant\\Gestion_Restaurant\\wwwroot\\",
+      "BasePath": "_content/Gestion_Restaurant",
+      "RelativePath": "img/environnement.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\environnement.png"
     },
     {
       "Identity": "E:\\ggabri4\\Documents\\COURS Master 1\\ASI\\Gestion_Restaurant\\Gestion_Restaurant\\wwwroot\\js\\site.js",
