@@ -42,7 +42,7 @@ namespace Gestion_Restaurant.Pages.Commandes
             }
 
             _context.Commande.Add(Commande);
-            await _context.SaveChangesAsync();
+            //await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }
