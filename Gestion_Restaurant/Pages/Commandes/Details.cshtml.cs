@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Gestion_Restaurant.Data;
 using Gestion_Restaurant.Models;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace Gestion_Restaurant.Pages.Commandes
 {
+    [Authorize]
     public class DetailsModel : PageModel
     {
         private readonly Gestion_Restaurant.Data.ApplicationDbContext _context;

@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "E:\\ggabri4\\Documents\\COURS Master 1\\ASI\\Gestion_Restaurant\\Gestion_Restaurant\\Gestion_Restaurant.csproj": {}
+    "C:\\Users\\Steven\\OneDrive\\Documents\\Cours_université\\Master_MIAGE\\Semestre_1\\Architecture_des_systèmes_d_informations\\Projet\\Gestion_Restaurant\\Gestion_Restaurant\\Gestion_Restaurant.csproj": {}
   },
   "projects": {
-    "E:\\ggabri4\\Documents\\COURS Master 1\\ASI\\Gestion_Restaurant\\Gestion_Restaurant\\Gestion_Restaurant.csproj": {
+    "C:\\Users\\Steven\\OneDrive\\Documents\\Cours_université\\Master_MIAGE\\Semestre_1\\Architecture_des_systèmes_d_informations\\Projet\\Gestion_Restaurant\\Gestion_Restaurant\\Gestion_Restaurant.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\ggabri4\\Documents\\COURS Master 1\\ASI\\Gestion_Restaurant\\Gestion_Restaurant\\Gestion_Restaurant.csproj",
+        "projectUniqueName": "C:\\Users\\Steven\\OneDrive\\Documents\\Cours_université\\Master_MIAGE\\Semestre_1\\Architecture_des_systèmes_d_informations\\Projet\\Gestion_Restaurant\\Gestion_Restaurant\\Gestion_Restaurant.csproj",
         "projectName": "Gestion_Restaurant",
-        "projectPath": "E:\\ggabri4\\Documents\\COURS Master 1\\ASI\\Gestion_Restaurant\\Gestion_Restaurant\\Gestion_Restaurant.csproj",
-        "packagesPath": "C:\\Users\\ggabr\\.nuget\\packages\\",
-        "outputPath": "E:\\ggabri4\\Documents\\COURS Master 1\\ASI\\Gestion_Restaurant\\Gestion_Restaurant\\obj\\",
+        "projectPath": "C:\\Users\\Steven\\OneDrive\\Documents\\Cours_université\\Master_MIAGE\\Semestre_1\\Architecture_des_systèmes_d_informations\\Projet\\Gestion_Restaurant\\Gestion_Restaurant\\Gestion_Restaurant.csproj",
+        "packagesPath": "C:\\Users\\Steven\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Steven\\OneDrive\\Documents\\Cours_université\\Master_MIAGE\\Semestre_1\\Architecture_des_systèmes_d_informations\\Projet\\Gestion_Restaurant\\Gestion_Restaurant\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\ggabr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Steven\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -86,7 +91,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Gestion_Restaurant.Data;
 using Gestion_Restaurant.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Gestion_Restaurant.Pages.Paiements
 {
+    [Authorize]
     public class EditModel : PageModel
     {
         private readonly Gestion_Restaurant.Data.ApplicationDbContext _context;
