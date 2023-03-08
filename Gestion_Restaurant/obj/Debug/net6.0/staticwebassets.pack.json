@@ -13,6 +13,14 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "E:\\ggabri4\\Documents\\COURS Master 1\\ASI\\Gestion_Restaurant\\Gestion_Restaurant\\wwwroot\\img\\cows.jpeg",
+      "PackagePath": "staticwebassets\\img\\cows.jpeg"
+    },
+    {
+      "Id": "E:\\ggabri4\\Documents\\COURS Master 1\\ASI\\Gestion_Restaurant\\Gestion_Restaurant\\wwwroot\\img\\environnement.png",
+      "PackagePath": "staticwebassets\\img\\environnement.png"
+    },
+    {
       "Id": "E:\\ggabri4\\Documents\\COURS Master 1\\ASI\\Gestion_Restaurant\\Gestion_Restaurant\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

@@ -1,4 +1,5 @@
-﻿using Microsoft.Build.Framework;
+﻿
+using System.ComponentModel.DataAnnotations;
 
 namespace Gestion_Restaurant.Models
 {
@@ -10,10 +11,20 @@ namespace Gestion_Restaurant.Models
         [Required]
         public string Prenom { get; set; }
 
-        // Clé étrangère 
+        // Clé étrangère
+        [Display(Name = "Commande Rattachée")]
         public int? CommandeEnChargeID { get; set; }
 
         //lien de navigation
         public Commande? PrepareCommande { get; set; }
+
+        [Display(Name = "Nom complet")]
+        public string NomComplet
+        {
+            get
+            {
+                return Nom + " " + Prenom;
+            }
+        }
     }
 }

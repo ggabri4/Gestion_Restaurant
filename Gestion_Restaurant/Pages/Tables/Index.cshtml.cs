@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,3 +34,38 @@ namespace Gestion_Restaurant.Pages.Tables
         }
     }
 }
+=======
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using Gestion_Restaurant.Data;
+using Gestion_Restaurant.Models;
+
+namespace Gestion_Restaurant.Pages.Tables
+{
+    public class IndexModel : PageModel
+    {
+        private readonly Gestion_Restaurant.Data.ApplicationDbContext _context;
+
+        public IndexModel(Gestion_Restaurant.Data.ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        public IList<Table> Table { get;set; } = default!;
+
+        public async Task OnGetAsync()
+        {
+            if (_context.Table != null)
+            {
+                Table = await _context.Table
+                .Include(t => t.CommandeRattache).ToListAsync();
+            }
+        }
+    }
+}
+>>>>>>> b06c15071445cebbe8ef6d1b7a465636dfe129c6

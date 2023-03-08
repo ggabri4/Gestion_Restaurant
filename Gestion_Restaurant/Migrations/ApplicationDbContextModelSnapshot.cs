@@ -189,6 +189,9 @@ namespace Gestion_Restaurant.Migrations
                     b.Property<bool>("Etat")
                         .HasColumnType("bit");
 
+                    b.Property<int>("NbPlace")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CommandeRattacheID");

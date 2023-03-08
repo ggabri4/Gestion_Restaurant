@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿@page
 @model Gestion_Restaurant.Pages.Factures.IndexModel
 
@@ -40,3 +41,47 @@
 }
     </tbody>
 </table>
+=======
+﻿@page
+@model Gestion_Restaurant.Pages.Factures.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-dark" asp-page="Create">Créer une nouvelle facture</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Facture[0].Montant)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Facture[0].CommandeFacturer)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Facture) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Montant)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CommandeFacturer.Id)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+>>>>>>> b06c15071445cebbe8ef6d1b7a465636dfe129c6
