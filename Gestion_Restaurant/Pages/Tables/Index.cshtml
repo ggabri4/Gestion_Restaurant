@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-﻿@page
+@page
 @model Gestion_Restaurant.Pages.Tables.IndexModel
 
 @{
@@ -41,63 +40,4 @@
 }
     </tbody>
 </table>
-=======
-﻿@page
-@model Gestion_Restaurant.Pages.Tables.IndexModel
 
-@{
-    ViewData["Title"] = "Index";
-}
-
-<h1>Index</h1>
-
-<p>
-    <a class="btn btn-dark" asp-page="Create">Créer une nouvelle table</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Table[0].Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Table[0].NbPlace)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Table[0].Etat)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Table[0].CommandeRattache)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model.Table) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NbPlace)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Etat)
-                </td>
-                <td>
-                    @if (item.CommandeRattache != null) {
-                        @Html.DisplayFor(modelItem => item.CommandeRattache.Id)
-                    }else{
-                        <p>Aucune</p>
-                    }
-                </td>
-                <td class="btn-group">
-                    <a class="btn btn-outline-secondary" asp-page="./Details" asp-route-id="@item.Id">Détails</a>
-                    <a class="btn btn-outline-primary" asp-page="./Edit" asp-route-id="@item.Id">Modifier</a>
-                    <a class="btn btn-outline-danger" asp-page="./Delete" asp-route-id="@item.Id">Supprimer</a>
-                </td class="btn btn-secondary">
-            </tr>
-    }
-    </tbody>
-</table>
->>>>>>> b06c15071445cebbe8ef6d1b7a465636dfe129c6

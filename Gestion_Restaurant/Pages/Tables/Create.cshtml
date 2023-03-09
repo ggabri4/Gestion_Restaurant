@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-﻿@page
+@page
 @model Gestion_Restaurant.Pages.Tables.CreateModel
 
 @{
@@ -37,48 +36,3 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-=======
-﻿@page
-@model Gestion_Restaurant.Pages.Tables.CreateModel
-
-@{
-    ViewData["Title"] = "Create";
-}
-
-<h1>Create</h1>
-
-<h4>Table</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Table.Etat" /> @Html.DisplayNameFor(model => model.Table.Etat)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="Table.NbPlace" class="control-label"></label>
-                <input asp-for="Table.NbPlace" class="form-control" />
-                <span asp-validation-for="Table.NbPlace" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Table.CommandeRattacheID" class="control-label"></label>
-                <select asp-for="Table.CommandeRattacheID" class ="form-control" asp-items="ViewBag.CommandeRattacheID"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
->>>>>>> b06c15071445cebbe8ef6d1b7a465636dfe129c6
