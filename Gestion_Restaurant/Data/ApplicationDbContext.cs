@@ -17,6 +17,5 @@ namespace Gestion_Restaurant.Data
         public DbSet<Paiement> Paiement { get; set; }
         public DbSet<Facture> Facture { get; set; }
         public DbSet<Serveur> Serveur { get; set; }
-
     }
 }

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Gestion_Restaurant.Data;
 using Gestion_Restaurant.Models;
 using Microsoft.Extensions.Primitives;
+using Newtonsoft.Json;
 
 namespace Gestion_Restaurant.Pages.Factures
 {
@@ -47,14 +48,23 @@ namespace Gestion_Restaurant.Pages.Factures
                 ViewData["CommandeFacturerID"] = new SelectList(_context.Commande, "Id", "Id");
                 return Page();
             }
-            Paiements = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Paiement>>(PaiementsJson);
-
+            Paiements = JsonConvert.DeserializeObject<List<Paiement>>(PaiementsJson);
             Facture.PaiementCommande = new List<Paiement>();
 
-            foreach (var paiement in Paiements)
+            if(Paiements != null)
             {
-                paiement.FactureAPayer = Facture;
-                Facture.PaiementCommande.Add(paiement);
+                foreach (var paiement in Paiements)
+                {
+                    paiement.FactureAPayer = Facture;
+                    Facture.PaiementCommande.Add(paiement);
+                }
+            }
+            
+            Commande? c = _context.Commande.Find(Facture.CommandeFacturerID);
+            if (c != null)
+            {
+                c.Statut = "Reglée";
+                _context.Update(c);
             }
             try
             {
@@ -62,7 +72,8 @@ namespace Gestion_Restaurant.Pages.Factures
                 await _context.SaveChangesAsync();
             }catch(Exception ex)
             {
-                ModelState.AddModelError("Duplicate", "Il existe déjà une facture pour cette commande");
+                if(ex != null)//Pour le warning 
+                    ModelState.AddModelError("Duplicate", "Il existe déjà une facture pour cette commande");
                 ViewData["CommandeFacturerID"] = new SelectList(_context.Commande, "Id", "Id");
                 return Page();
             }

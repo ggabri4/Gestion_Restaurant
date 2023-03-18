@@ -55,6 +55,7 @@ namespace Gestion_Restaurant.Pages.Commandes
                 .Include(c => c.CommandeProduits)
                 .Include(c => c.CommandeTables)
                 .Include(c => c.CommandeServiPar)
+                .Include(c => c.FactureRattacher)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
             if (commande != null)
@@ -77,7 +78,10 @@ namespace Gestion_Restaurant.Pages.Commandes
                 {
                     Commande.CommandeProduits.Remove(p);
                 }
-
+                if(Commande.FactureRattacher != null)
+                {
+                    _context.Facture.Remove(Commande.FactureRattacher);
+                }
                 _context.Commande.Remove(Commande);
                 await _context.SaveChangesAsync();
             }

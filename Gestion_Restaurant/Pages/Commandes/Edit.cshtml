@@ -27,6 +27,7 @@
                     <option value="En préparation">En préparation</option>
                     <option value="Prête">Prête</option>
                     <option value="Servie">Servie</option>
+                    <option value="Reglée">Reglée</option>
                 </select>
                 <span asp-validation-for="Commande.Statut" class="text-danger"></span>
             </div>
@@ -45,6 +46,7 @@
 
             <div class="form-group mt-3">
                 <input type="submit" value="Modifier" class="btn btn-primary" />
+                <a asp-page="./Index" class="btn btn-secondary">Retour</a>
             </div>
         </div>
         <div class="col-md-4">

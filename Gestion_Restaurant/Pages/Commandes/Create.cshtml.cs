@@ -50,26 +50,38 @@ namespace Gestion_Restaurant.Pages.Commandes
             }
             foreach (int ServeurId in ServeursIds)
             {
-                Serveur serveur = _context.Serveur.Find(ServeurId);
-                Commande.CommandeServiPar.Add(serveur);
+                Serveur? serveur = _context.Serveur.Find(ServeurId);
+                if(serveur != null)
+                {
+                    Commande.CommandeServiPar.Add(serveur);
+                }
             }
             foreach (int BarmanId in BarmenIds)
             {
-                Barman barman = _context.Barman.Find(BarmanId);
-                Commande.CommandePreparerPar.Add(barman);
+                Barman? barman = _context.Barman.Find(BarmanId);
+                if(barman != null)
+                {
+                    Commande.CommandePreparerPar.Add(barman);
+                }
             }
             foreach (int TableId in TablesIds)
             {
-                Table table = _context.Table.Find(TableId);
-                Commande.CommandeTables.Add(table);
+                Table? table = _context.Table.Find(TableId);
+                if(table != null) 
+                { 
+                    Commande.CommandeTables.Add(table);
+                }
             }
 
             if(Request.Form.TryGetValue("produits", out StringValues ProduitsIds))
             {
                 foreach (string ProduitId in ProduitsIds)
                 {
-                    Produit produit = _context.Produit.Find(int.Parse(ProduitId));
-                    Commande.CommandeProduits.Add(produit);
+                    Produit? produit = _context.Produit.Find(int.Parse(ProduitId));
+                    if (produit != null)
+                    {
+                        Commande.CommandeProduits.Add(produit);
+                    }
                 }
             }
             
