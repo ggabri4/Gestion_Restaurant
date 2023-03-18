@@ -9,30 +9,163 @@
 
 <h4>Facture</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form method="post">
+    <div class="row">
+        <div class="col-md-4 me-3">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
             <div class="form-group">
                 <label asp-for="Facture.Montant" class="control-label"></label>
-                <input asp-for="Facture.Montant" class="form-control" />
+                <input asp-for="Facture.Montant" id="montant" class="form-control" />
                 <span asp-validation-for="Facture.Montant" class="text-danger"></span>
+                <span id="errorTotal" class="text-danger d-none">Le montant ne correspond pas à la somme des paiements</span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Facture.CommandeFacturerID" class="control-label"></label>
-                <select asp-for="Facture.CommandeFacturerID" class ="form-control" asp-items="ViewBag.CommandeFacturerID"></select>
+                <select asp-for="Facture.CommandeFacturerID" class="form-control" asp-items="ViewBag.CommandeFacturerID"></select>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="form-group mt-3">
+                <input type="submit" value="Créer" class="btn btn-primary" />
+                <a asp-page="./Index" class="btn btn-secondary">Retour</a>
             </div>
-        </form>
+            <input type="hidden" id="Facture_Paiements" name="Facture_Paiements" /> 
+        </div>
+        <div class="col-md-4">
+            <div class="form-group my-3">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPaiement">Ajouter un paiement</button>
+                <div id="modalPaiement" class="modal fade" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Ajouter un paiement</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <input asp-for="Paiement.FactureAPayer" id="FactureAPayer" class="form-control" type="hidden" />
+                                <div class="form-group">
+                                    <label asp-for="Paiement.MoyenPaiement" class="control-label"></label>
+                                    <select asp-for="Paiement.MoyenPaiement" class="form-control">
+                                        <option value="Carte bleu">Carte bleu</option>
+                                        <option value="Espèce">Espèce</option>
+                                        <option value="Chèque">Chèque</option>
+                                        <option value="Ticket restaurant">Ticket restaurant</option>
+                                    </select>
+                                    <span asp-validation-for="Paiement.MoyenPaiement" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Paiement.Montant" class="control-label"></label>
+                                    <input asp-for="Paiement.Montant" class="form-control" required/>
+                                    <span id="errorMontant" class="text-danger d-none">Le montant est obligatoire</span>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" onclick="ajouterPaiement()">Ajouter</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Paiement.MoyenPaiement)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Paiement.Montant)
+                        </th>
+                        <th class="ps-3">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="bodyPaiement">
+                    <tr>
+                        <td>
+                            Aucun paiement
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr id="exemplePaiement" class="d-none">
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td class="ps-3">
+                            <button type="button" class="btn btn-danger" onclick="supprimerPaiement(this)">Supprimer</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
-
+</form>
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        var paiements = [];
+        var compteur = 0;
+        $("#FactureAPayer").val(1)
+
+        function ajouterPaiement() {
+            moyen = $("#Paiement_MoyenPaiement").val()
+            montant = $("#Paiement_Montant").val()
+            if(montant == ""){
+                $("#errorMontant").removeClass("d-none")
+                return -1;
+            }else{
+                $("#errorMontant").addClass("d-none")
+            }
+
+            var paiement = {
+                    MoyenPaiement: moyen,
+                    Montant: montant,
+                Facture: null
+            };
+
+            paiements.push(paiement);
+            $("#modalPaiement").modal("hide");
+
+            if(compteur==0)
+                $("#bodyPaiement").children().first().addClass('d-none')
+
+            $("#exemplePaiement").clone().appendTo("#bodyPaiement").removeClass("d-none").attr('id', 'paiement_' + compteur)
+            tds = $("#paiement_"+compteur+" td")
+            $(tds[0]).text(paiement.MoyenPaiement)
+            $(tds[1]).text(paiement.Montant)
+            compteur++;
+        }
+
+        function supprimerPaiement(btn){
+            const parent = $(btn).parent().parent()
+            tds = $(parent).children()
+            const index = paiements.findIndex(element => element.MoyenPaiement === $(tds[0]).text() && element.Montant === $(tds[1]).text());
+            if (index !== -1) {
+                paiements.splice(index, 1);
+            }
+            $(parent).remove()
+        }
+
+        $("form").submit(function () {
+            $("#Facture_Paiements").val(JSON.stringify(paiements));
+            var somme = 0;
+            paiements.forEach((paiement)=>{
+                somme = parseInt(paiement.Montant) + somme;
+            })
+            console.log(parseInt($("#montant").val()))
+            if (somme != parseInt($("#montant").val())){
+                $("#errorTotal").removeClass("d-none")
+                return false;
+            }
+            return true;
+        });
+    </script>
 }

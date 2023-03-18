@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Gestion_Restaurant.Data;
 using Gestion_Restaurant.Models;
+using Microsoft.Extensions.Primitives;
 
 namespace Gestion_Restaurant.Pages.Factures
 {
@@ -21,26 +22,51 @@ namespace Gestion_Restaurant.Pages.Factures
 
         public IActionResult OnGet()
         {
-        ViewData["CommandeFacturerID"] = new SelectList(_context.Commande, "Id", "Id");
+            ViewData["CommandeFacturerID"] = new SelectList(_context.Commande, "Id", "Id");
             return Page();
         }
 
         [BindProperty]
         public Facture Facture { get; set; }
-        
+
+        [BindProperty]
+        public Paiement Paiement { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public List<Paiement> Paiements { get; set; }
+
+        public string PaiementsJson { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid)
+            PaiementsJson = Request.Form["Facture_Paiements"];
+
+            if (!ModelState.IsValid || PaiementsJson == null)
             {
+                ViewData["CommandeFacturerID"] = new SelectList(_context.Commande, "Id", "Id");
                 return Page();
             }
+            Paiements = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Paiement>>(PaiementsJson);
 
-            _context.Facture.Add(Facture);
-            await _context.SaveChangesAsync();
+            Facture.PaiementCommande = new List<Paiement>();
 
+            foreach (var paiement in Paiements)
+            {
+                paiement.FactureAPayer = Facture;
+                Facture.PaiementCommande.Add(paiement);
+            }
+            try
+            {
+                _context.Facture.Add(Facture);
+                await _context.SaveChangesAsync();
+            }catch(Exception ex)
+            {
+                ModelState.AddModelError("Duplicate", "Il existe déjà une facture pour cette commande");
+                ViewData["CommandeFacturerID"] = new SelectList(_context.Commande, "Id", "Id");
+                return Page();
+            }
             return RedirectToPage("./Index");
-        }
+        } 
     }
 }

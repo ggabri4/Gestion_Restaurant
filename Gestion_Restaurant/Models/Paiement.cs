@@ -12,9 +12,9 @@ namespace Gestion_Restaurant.Models
         [Display(Name = "Moyen de paiement")]
         public string MoyenPaiement { get; set; }
 
-        public double Montant { get; set; }
+        public double? Montant { get; set; }
 
         //clé étrangère
-        public Facture FactureAPayer { get; set; }
+        public Facture? FactureAPayer { get; set; }
     }
 }
