@@ -1,27 +1,27 @@
 ﻿@page
-@model Gestion_Restaurant.Pages.Tables.CreateModel
+@model Gestion_Restaurant.Pages.Serveurs.CreateModel
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Création</h1>
 
-<h4>Table</h4>
+<h4>Serveur</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Table.Etat" /> @Html.DisplayNameFor(model => model.Table.Etat)
-                </label>
+            <div class="form-group">
+                <label asp-for="Serveur.Nom" class="control-label"></label>
+                <input asp-for="Serveur.Nom" class="form-control" />
+                <span asp-validation-for="Serveur.Nom" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Table.NbPlace" class="control-label"></label>
-                <input asp-for="Table.NbPlace" class="form-control" />
-                <span asp-validation-for="Table.NbPlace" class="text-danger"></span>
+                <label asp-for="Serveur.Prenom" class="control-label"></label>
+                <input asp-for="Serveur.Prenom" class="form-control" />
+                <span asp-validation-for="Serveur.Prenom" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

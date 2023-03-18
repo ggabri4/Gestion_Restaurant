@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Gestion_Restaurant.Data;
 using Gestion_Restaurant.Models;
 
-namespace Gestion_Restaurant.Pages.Barmen
+namespace Gestion_Restaurant.Pages.Serveurs
 {
     public class EditModel : PageModel
     {
@@ -21,23 +21,22 @@ namespace Gestion_Restaurant.Pages.Barmen
         }
 
         [BindProperty]
-        public Barman Barman { get; set; } = default!;
+        public Serveur Serveur { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Barman == null)
+            if (id == null || _context.Serveur == null)
             {
                 return NotFound();
             }
 
-            var barman =  await _context.Barman.FirstOrDefaultAsync(m => m.Id == id);
-            if (barman == null)
+            var serveur =  await _context.Serveur.FirstOrDefaultAsync(m => m.Id == id);
+            if (serveur == null)
             {
                 return NotFound();
             }
-            Barman = barman;
-            ViewData["PrepareCommandeID"] = new SelectList(_context.Commande, "Id", "Id");
-
+            Serveur = serveur;
+           ViewData["CommandeEtablitID"] = new SelectList(_context.Commande, "Id", "Id");
             return Page();
         }
 
@@ -50,7 +49,7 @@ namespace Gestion_Restaurant.Pages.Barmen
                 return Page();
             }
 
-            _context.Attach(Barman).State = EntityState.Modified;
+            _context.Attach(Serveur).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +57,7 @@ namespace Gestion_Restaurant.Pages.Barmen
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BarmanExists(Barman.Id))
+                if (!ServeurExists(Serveur.Id))
                 {
                     return NotFound();
                 }
@@ -71,9 +70,9 @@ namespace Gestion_Restaurant.Pages.Barmen
             return RedirectToPage("./Index");
         }
 
-        private bool BarmanExists(int id)
+        private bool ServeurExists(int id)
         {
-          return _context.Barman.Any(e => e.Id == id);
+          return _context.Serveur.Any(e => e.Id == id);
         }
     }
 }

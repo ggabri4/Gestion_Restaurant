@@ -17,5 +17,14 @@ namespace Gestion_Restaurant.Models
         [Display(Name = "Commande Rattachée")]
         public int? CommandeEtablitID { get; set; }
         public Commande? CommandeEtablit { get; set; }
+
+        [Display(Name = "Nom complet")]
+        public string NomComplet
+        {
+            get
+            {
+                return Nom + " " + Prenom;
+            }
+        }
     }
 }

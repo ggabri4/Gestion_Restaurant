@@ -1,4 +1,5 @@
 ﻿using Microsoft.Build.Framework;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,10 +13,6 @@ namespace Gestion_Restaurant.Models
     {
         public int Id { get; set; }
 
-        
-        public string NumeroCommande { get; set; }
-
-        
         [Display(Name = "Passage de la commande")]
         public DateTime DateTime { get; set; }
         
@@ -25,9 +22,9 @@ namespace Gestion_Restaurant.Models
         public Facture? FactureRattacher { get; set; }
 
         //lien de navigation
-        public ICollection<Commande> CommandesPasser { get; set; }
+        public ICollection<Table> CommandeTables { get; set; }
         public ICollection<Barman> CommandePreparerPar { get; set; }
         public ICollection<Serveur> CommandeServiPar { get; set; }
-
+        public ICollection<Produit> CommandeProduits { get; set; }
     }
 }

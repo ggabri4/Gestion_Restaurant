@@ -20,7 +20,7 @@
                 @Html.DisplayNameFor(model => model.Barman[0].Prenom)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Barman[0].CommandeEnChargeID)
+                @Html.DisplayNameFor(model => model.Barman[0].PrepareCommandeID)
             </th>
             <th></th>
         </tr>
@@ -35,9 +35,9 @@
                 @Html.DisplayFor(modelItem => item.Prenom)
             </td>
             <td>
-                @if(item.CommandeEnChargeID != null)
+                @if(item.PrepareCommandeID != null)
                 {
-                    @Html.DisplayFor(modelItem => item.CommandeEnChargeID)
+                    @Html.DisplayFor(modelItem => item.PrepareCommandeID)
                 }
                 else
                 {

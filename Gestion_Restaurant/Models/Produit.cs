@@ -10,6 +10,6 @@ namespace Gestion_Restaurant.Models
         public Double Prix { get; set; }
         [Required]
         public Boolean Dispo { get; set; }
-
+        public ICollection<Commande> Commandes { get; set; }
     }
 }

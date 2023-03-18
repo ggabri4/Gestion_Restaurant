@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Gestion_Restaurant.Data;
 using Gestion_Restaurant.Models;
+using Microsoft.Extensions.Primitives;
 
 namespace Gestion_Restaurant.Pages.Commandes
 {
@@ -22,6 +23,12 @@ namespace Gestion_Restaurant.Pages.Commandes
 
         [BindProperty]
         public Commande Commande { get; set; } = default!;
+        [BindProperty]
+        public List<int> ServeursIds { get; set; }
+        [BindProperty]
+        public List<int> BarmenIds { get; set; }
+        [BindProperty]
+        public List<int> TablesIds { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,11 +37,25 @@ namespace Gestion_Restaurant.Pages.Commandes
                 return NotFound();
             }
 
-            var commande =  await _context.Commande.FirstOrDefaultAsync(m => m.Id == id);
+            var commande =  await _context.Commande
+                .Include(c => c.CommandeServiPar)
+                .Include(c => c.CommandePreparerPar)
+                .Include(c => c.CommandeProduits)
+                .Include(c => c.CommandeTables)
+                .FirstOrDefaultAsync(c => c.Id == id);
             if (commande == null)
             {
                 return NotFound();
             }
+            var barmanIds = commande.CommandePreparerPar.Select(b => b.Id);
+            var serveurId = commande.CommandeServiPar.Select(s => s.Id);
+            var tableId = commande.CommandeTables.Select(t => t.Id);
+            var produitId = commande.CommandeProduits.Select(p => p.Id);
+            ViewData["BarmanId"] = new MultiSelectList(_context.Barman.Where(b => b.PrepareCommandeID == null || b.PrepareCommandeID == id).ToList(), "Id", "NomComplet", barmanIds);
+            ViewData["ServeurId"] = new MultiSelectList(_context.Serveur.Where(s => s.CommandeEtablitID == null || s.CommandeEtablitID == id).ToList(), "Id", "NomComplet", serveurId);
+            ViewData["TableId"] = new MultiSelectList(_context.Table.Where(t => t.CommandeRattacheID == null || t.CommandeRattacheID == id).ToList(), "Id", "TableInfos", tableId);
+            ViewData["ProduitId"] = new MultiSelectList(_context.Produit.Where(p => p.Dispo == true).ToList(), "Id", "Description", produitId);
+
             Commande = commande;
             return Page();
         }
@@ -47,9 +68,31 @@ namespace Gestion_Restaurant.Pages.Commandes
             {
                 return Page();
             }
+            foreach (int ServeurId in ServeursIds)
+            {
+                Serveur serveur = _context.Serveur.Find(ServeurId);
+                Commande.CommandeServiPar.Add(serveur);
+            }
+            foreach (int BarmanId in BarmenIds)
+            {
+                Barman barman = _context.Barman.Find(BarmanId);
+                Commande.CommandePreparerPar.Add(barman);
+            }
+            foreach (int TableId in TablesIds)
+            {
+                Table table = _context.Table.Find(TableId);
+                Commande.CommandeTables.Add(table);
+            }
 
-            _context.Attach(Commande).State = EntityState.Modified;
-
+            if (Request.Form.TryGetValue("produits", out StringValues ProduitsIds))
+            {
+                foreach (string ProduitId in ProduitsIds)
+                {
+                    Produit produit = _context.Produit.Find(int.Parse(ProduitId));
+                    Commande.CommandeProduits.Add(produit);
+                }
+            }
+            _context.Update(Commande);
             try
             {
                 await _context.SaveChangesAsync();

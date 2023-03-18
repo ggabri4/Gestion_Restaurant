@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Gestion_Restaurant.Data;
 using Gestion_Restaurant.Models;
+using System.Collections;
+using NuGet.Versioning;
 
 namespace Gestion_Restaurant.Pages.Commandes
 {
@@ -48,11 +50,34 @@ namespace Gestion_Restaurant.Pages.Commandes
             {
                 return NotFound();
             }
-            var commande = await _context.Commande.FindAsync(id);
+            var commande = await _context.Commande
+                .Include(c => c.CommandePreparerPar)
+                .Include(c => c.CommandeProduits)
+                .Include(c => c.CommandeTables)
+                .Include(c => c.CommandeServiPar)
+                .FirstOrDefaultAsync(c => c.Id == id);
 
             if (commande != null)
             {
                 Commande = commande;
+
+                foreach (Barman b in Commande.CommandePreparerPar)
+                {
+                    Commande.CommandePreparerPar.Remove(b);
+                }
+                foreach (Table t in Commande.CommandeTables)
+                {
+                    Commande.CommandeTables.Remove(t);
+                }
+                foreach (Serveur s in Commande.CommandeServiPar)
+                {
+                    Commande.CommandeServiPar.Remove(s);
+                }
+                foreach (Produit p in Commande.CommandeProduits)
+                {
+                    Commande.CommandeProduits.Remove(p);
+                }
+
                 _context.Commande.Remove(Commande);
                 await _context.SaveChangesAsync();
             }

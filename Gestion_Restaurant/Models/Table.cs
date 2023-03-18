@@ -6,6 +6,8 @@ namespace Gestion_Restaurant.Models
     public class Table
     {
         public int Id { get; set; }
+
+        [Display(Name = "Disponible")]
         public Boolean Etat { get; set; }
 
         [Display(Name = "Nombre de places")]

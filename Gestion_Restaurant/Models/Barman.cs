@@ -13,7 +13,7 @@ namespace Gestion_Restaurant.Models
 
         // Clé étrangère
         [Display(Name = "Commande Rattachée")]
-        public int? CommandeEnChargeID { get; set; }
+        public int? PrepareCommandeID { get; set; }
 
         //lien de navigation
         public Commande? PrepareCommande { get; set; }

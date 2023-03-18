@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets\\img\\environnement.png"
     },
     {
+      "Id": "E:\\ggabri4\\Documents\\COURS Master 1\\ASI\\Gestion_Restaurant\\Gestion_Restaurant\\wwwroot\\img\\logo.png",
+      "PackagePath": "staticwebassets\\img\\logo.png"
+    },
+    {
       "Id": "E:\\ggabri4\\Documents\\COURS Master 1\\ASI\\Gestion_Restaurant\\Gestion_Restaurant\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

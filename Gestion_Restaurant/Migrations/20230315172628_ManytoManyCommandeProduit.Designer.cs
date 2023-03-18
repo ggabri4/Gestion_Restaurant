@@ -4,6 +4,7 @@ using Gestion_Restaurant.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gestion_Restaurant.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230315172628_ManytoManyCommandeProduit")]
+    partial class ManytoManyCommandeProduit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +36,7 @@ namespace Gestion_Restaurant.Migrations
 
                     b.HasIndex("CommandesId");
 
-                    b.ToTable("CommandeProduit", (string)null);
+                    b.ToTable("CommandeProduit");
                 });
 
             modelBuilder.Entity("Gestion_Restaurant.Models.Barman", b =>
@@ -60,7 +62,7 @@ namespace Gestion_Restaurant.Migrations
 
                     b.HasIndex("PrepareCommandeID");
 
-                    b.ToTable("Barman", (string)null);
+                    b.ToTable("Barman");
                 });
 
             modelBuilder.Entity("Gestion_Restaurant.Models.Commande", b =>
@@ -80,7 +82,7 @@ namespace Gestion_Restaurant.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Commande", (string)null);
+                    b.ToTable("Commande");
                 });
 
             modelBuilder.Entity("Gestion_Restaurant.Models.Facture", b =>
@@ -101,7 +103,7 @@ namespace Gestion_Restaurant.Migrations
                         .IsUnique()
                         .HasFilter("[CommandeFacturerID] IS NOT NULL");
 
-                    b.ToTable("Facture", (string)null);
+                    b.ToTable("Facture");
                 });
 
             modelBuilder.Entity("Gestion_Restaurant.Models.Paiement", b =>
@@ -126,7 +128,7 @@ namespace Gestion_Restaurant.Migrations
 
                     b.HasIndex("FactureAPayerId");
 
-                    b.ToTable("Paiement", (string)null);
+                    b.ToTable("Paiement");
                 });
 
             modelBuilder.Entity("Gestion_Restaurant.Models.Produit", b =>
@@ -149,7 +151,7 @@ namespace Gestion_Restaurant.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Produit", (string)null);
+                    b.ToTable("Produit");
                 });
 
             modelBuilder.Entity("Gestion_Restaurant.Models.Serveur", b =>
@@ -175,7 +177,7 @@ namespace Gestion_Restaurant.Migrations
 
                     b.HasIndex("CommandeEtablitID");
 
-                    b.ToTable("Serveur", (string)null);
+                    b.ToTable("Serveur");
                 });
 
             modelBuilder.Entity("Gestion_Restaurant.Models.Table", b =>
@@ -199,7 +201,7 @@ namespace Gestion_Restaurant.Migrations
 
                     b.HasIndex("CommandeRattacheID");
 
-                    b.ToTable("Table", (string)null);
+                    b.ToTable("Table");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

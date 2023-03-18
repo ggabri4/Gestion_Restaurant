@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Gestion_Restaurant.Data;
 using Gestion_Restaurant.Models;
 
-namespace Gestion_Restaurant.Pages.Produits
+namespace Gestion_Restaurant.Pages.Serveurs
 {
     public class CreateModel : PageModel
     {
@@ -21,23 +21,23 @@ namespace Gestion_Restaurant.Pages.Produits
 
         public IActionResult OnGet()
         {
+        ViewData["CommandeEtablitID"] = new SelectList(_context.Commande, "Id", "Id");
             return Page();
         }
 
         [BindProperty]
-        public Produit Produit { get; set; }
+        public Serveur Serveur { get; set; }
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+          if (!ModelState.IsValid)
             {
-                if(ModelState.ErrorCount > 1) // Il considère une erreur sur la relation commande
-                    return Page();
+                return Page();
             }
 
-            _context.Produit.Add(Produit);
+            _context.Serveur.Add(Serveur);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

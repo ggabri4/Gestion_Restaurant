@@ -1,0 +1,55 @@
+﻿@page
+@model Gestion_Restaurant.Pages.Serveurs.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-dark" asp-page="Create">Créer un nouveau serveur</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Serveur[0].Nom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Serveur[0].Prenom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Serveur[0].CommandeEtablit)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Serveur) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prenom)
+            </td>
+            <td>
+                @if(item.CommandeEtablit != null)
+                {
+                    @Html.DisplayFor(modelItem => item.CommandeEtablit.Id)
+                }
+                else
+                {
+                    <p>Aucune</p>
+                }
+            </td>
+            <td class="btn-group">
+                <a class="btn btn-outline-secondary" asp-page="./Details" asp-route-id="@item.Id">Détails</a>
+                <a class="btn btn-outline-primary" asp-page="./Edit" asp-route-id="@item.Id">Modifier</a>
+                <a class="btn btn-outline-danger" asp-page="./Delete" asp-route-id="@item.Id">Supprimer</a>
+            </td class="btn btn-secondary">
+        </tr>
+}
+    </tbody>
+</table>

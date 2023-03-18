@@ -23,7 +23,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Commande[0].NumeroCommande)
+                @Html.DisplayNameFor(model => model.Commande[0].Id)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Commande[0].DateTime)
@@ -38,7 +38,7 @@
 @foreach (var item in Model.Commande) {
         <tr>
             <td>
-                    @Html.DisplayFor(modelItem => item.NumeroCommande)
+                    @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DateTime)
@@ -46,11 +46,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Statut)
             </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
+            <td class="btn-group">
+                <a class="btn btn-outline-secondary" asp-page="./Details" asp-route-id="@item.Id">Détails</a>
+                <a class="btn btn-outline-primary" asp-page="./Edit" asp-route-id="@item.Id">Modifier</a>
+                <a class="btn btn-outline-danger" asp-page="./Delete" asp-route-id="@item.Id">Supprimer</a>
+             </td class="btn btn-secondary">
         </tr>
 }
     </tbody>

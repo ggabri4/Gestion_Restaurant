@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "8a35F88NVD2bv+CTYrcdaGU/QqcbFutlb6Zyf8Hm6yk=",
+  "Hash": "EHLqhRr4LqunsCSY6gyM4syCNb96J2PygZnBslPSgJc=",
   "Source": "Gestion_Restaurant",
   "BasePath": "_content/Gestion_Restaurant",
   "Mode": "Default",
@@ -1137,6 +1137,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\environnement.png"
+    },
+    {
+      "Identity": "E:\\ggabri4\\Documents\\COURS Master 1\\ASI\\Gestion_Restaurant\\Gestion_Restaurant\\wwwroot\\img\\logo.png",
+      "SourceId": "Gestion_Restaurant",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\ggabri4\\Documents\\COURS Master 1\\ASI\\Gestion_Restaurant\\Gestion_Restaurant\\wwwroot\\",
+      "BasePath": "_content/Gestion_Restaurant",
+      "RelativePath": "img/logo.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\logo.png"
     },
     {
       "Identity": "E:\\ggabri4\\Documents\\COURS Master 1\\ASI\\Gestion_Restaurant\\Gestion_Restaurant\\wwwroot\\js\\site.js",
