@@ -9,9 +9,12 @@ using Gestion_Restaurant.Data;
 using Gestion_Restaurant.Models;
 using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gestion_Restaurant.Pages.Factures
 {
+    [Authorize(Roles = "Admin, Caissier")]
     public class CreateModel : PageModel
     {
         private readonly Gestion_Restaurant.Data.ApplicationDbContext _context;
@@ -23,7 +26,15 @@ namespace Gestion_Restaurant.Pages.Factures
 
         public IActionResult OnGet()
         {
-            ViewData["CommandeFacturerID"] = new SelectList(_context.Commande, "Id", "Id");
+            Facture = new Facture();
+            ViewData["CommandeFacturerID"] = new SelectList(_context.Commande.Include(c => c.CommandeProduits), "Id", "CommandeInfos");
+            Facture.Montant = _context.Commande.Include(c => c.CommandeProduits).First().Montant;
+            MontantsJson = System.Text.Json.JsonSerializer.Serialize(_context.Commande
+                .Include(c => c.CommandeProduits)
+                .Select(c=> new Commande { 
+                    Id = c.Id, 
+                    CommandeProduits = c.CommandeProduits.Select(p => new Produit {Prix= p.Prix } ).ToList()})
+                .ToList());
             return Page();
         }
 
@@ -37,6 +48,7 @@ namespace Gestion_Restaurant.Pages.Factures
         public List<Paiement> Paiements { get; set; }
 
         public string PaiementsJson { get; set; }
+        public string MontantsJson { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -45,7 +57,7 @@ namespace Gestion_Restaurant.Pages.Factures
 
             if (!ModelState.IsValid || PaiementsJson == null)
             {
-                ViewData["CommandeFacturerID"] = new SelectList(_context.Commande, "Id", "Id");
+                ViewData["CommandeFacturerID"] = new SelectList(_context.Commande.Include(c => c.CommandeProduits), "Id", "CommandeInfos");
                 return Page();
             }
             Paiements = JsonConvert.DeserializeObject<List<Paiement>>(PaiementsJson);
@@ -72,9 +84,8 @@ namespace Gestion_Restaurant.Pages.Factures
                 await _context.SaveChangesAsync();
             }catch(Exception ex)
             {
-                if(ex != null)//Pour le warning 
-                    ModelState.AddModelError("Duplicate", "Il existe déjà une facture pour cette commande");
-                ViewData["CommandeFacturerID"] = new SelectList(_context.Commande, "Id", "Id");
+                ModelState.AddModelError("Duplicate", "Il existe déjà une facture pour cette commande");
+                ViewData["CommandeFacturerID"] = new SelectList(_context.Commande.Include(c => c.CommandeProduits), "Id", "CommandeInfos");
                 return Page();
             }
             return RedirectToPage("./Index");

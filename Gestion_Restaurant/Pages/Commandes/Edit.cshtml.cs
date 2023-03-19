@@ -10,9 +10,12 @@ using Gestion_Restaurant.Data;
 using Gestion_Restaurant.Models;
 using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Gestion_Restaurant.Pages.Commandes
 {
+    [Authorize(Roles = "Admin, Barman, Serveur")]
+
     public class EditModel : PageModel
     {
         private readonly Gestion_Restaurant.Data.ApplicationDbContext _context;

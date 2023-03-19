@@ -31,5 +31,28 @@ namespace Gestion_Restaurant.Models
         public ICollection<Serveur> CommandeServiPar { get; set; }
         [Display(Name = "Produit(s)")]
         public ICollection<Produit> CommandeProduits { get; set; }
+
+        [Display(Name = "Montant total")]
+        public double Montant
+        {
+            get
+            {
+                double Somme = 0;
+                foreach(var produit in CommandeProduits)
+                {
+                    Somme += produit.Prix;
+                }
+                return Somme;
+            }
+        }
+
+        [Display(Name = "Informations")]
+        public string CommandeInfos
+        {
+            get 
+            {
+                return "Commande n°" + Id + " ( Montant : " + Montant + "€ )";
+            }
+        }
     }
 }

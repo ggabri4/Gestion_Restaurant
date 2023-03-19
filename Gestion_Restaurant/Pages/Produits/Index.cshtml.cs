@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Gestion_Restaurant.Data;
 using Gestion_Restaurant.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Gestion_Restaurant.Pages.Produits
 {
+    [Authorize(Roles = "Admin, Barman, Serveur")]
     public class IndexModel : PageModel
     {
         private readonly Gestion_Restaurant.Data.ApplicationDbContext _context;

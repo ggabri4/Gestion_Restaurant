@@ -9,9 +9,11 @@ using Gestion_Restaurant.Data;
 using Gestion_Restaurant.Models;
 using System.Collections;
 using NuGet.Versioning;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Gestion_Restaurant.Pages.Commandes
 {
+    [Authorize(Roles = "Admin, Barman, Serveur")]
     public class DeleteModel : PageModel
     {
         private readonly Gestion_Restaurant.Data.ApplicationDbContext _context;

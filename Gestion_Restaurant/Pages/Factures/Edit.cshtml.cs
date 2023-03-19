@@ -11,9 +11,11 @@ using Gestion_Restaurant.Models;
 using Newtonsoft.Json;
 using System.Text.Json;
 using System.ComponentModel.Design;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Gestion_Restaurant.Pages.Factures
 {
+    [Authorize(Roles = "Admin, Caissier")]
     public class EditModel : PageModel
     {
         private readonly Gestion_Restaurant.Data.ApplicationDbContext _context;
@@ -34,6 +36,7 @@ namespace Gestion_Restaurant.Pages.Factures
 
         [BindProperty]
         public string PaiementsJson { get; set; }
+        public string MontantsJson { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -51,7 +54,16 @@ namespace Gestion_Restaurant.Pages.Factures
                 return NotFound();
             }
             Facture = facture;
-            ViewData["CommandeFacturerID"] = new SelectList(_context.Commande, "Id", "Id");
+            ViewData["CommandeFacturerID"] = new SelectList(_context.Commande.Include(c => c.CommandeProduits), "Id", "CommandeInfos");
+            Facture.Montant = _context.Commande.Include(c => c.CommandeProduits).First().Montant;
+            MontantsJson = System.Text.Json.JsonSerializer.Serialize(_context.Commande
+                .Include(c => c.CommandeProduits)
+                .Select(c => new Commande
+                {
+                    Id = c.Id,
+                    CommandeProduits = c.CommandeProduits.Select(p => new Produit { Prix = p.Prix }).ToList()
+                })
+                .ToList());
 
             PaiementsJson = System.Text.Json.JsonSerializer.Serialize(facture.PaiementCommande
                 .Select(p => new Paiement { Id = p.Id, Montant = p.Montant, MoyenPaiement = p.MoyenPaiement }));

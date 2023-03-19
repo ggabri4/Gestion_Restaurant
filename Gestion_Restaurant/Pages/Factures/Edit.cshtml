@@ -13,12 +13,12 @@
     <div class="row">
         <div class="col-md-4 me-3">
             <div asp-validation-summary="All" class="text-danger"></div>
+            <span id="errorTotal" class="text-danger d-none">Le montant ne correspond pas à la somme des paiements</span>
             <input type="hidden" asp-for="Facture.Id" />
-            <div class="form-group">
+            <div class="form-group d-none">
                 <label asp-for="Facture.Montant" class="control-label"></label>
                 <input asp-for="Facture.Montant" id="montant" class="form-control" />
                 <span asp-validation-for="Facture.Montant" class="text-danger"></span>
-                <span id="errorTotal" class="text-danger d-none">Le montant ne correspond pas à la somme des paiements</span>
             </div>
             <div class="form-group">
                 <label asp-for="Facture.CommandeFacturerID" class="control-label"></label>
@@ -28,7 +28,8 @@
                 <input type="submit" value="Modifier" class="btn btn-primary" />
                 <a asp-page="./Index" class="btn btn-secondary">Retour</a>
             </div>
-            <input type="hidden" id="Facture_Paiements" name="Facture_Paiements" asp-for="PaiementsJson"/>
+            <input type="hidden" id="MontantsJson" asp-for="MontantsJson"/>
+            <input type="hidden" id="Facture_Paiements" name="Facture_Paiements" asp-for="PaiementsJson" />
         </div>
     <div class="col-md-4">
             <div class="form-group my-3">
@@ -108,6 +109,7 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
+        var MontantsJson = JSON.parse($("#MontantsJson").val())
         var paiements = [];
         var compteur = 0;
         var getPaiement = []
@@ -118,6 +120,13 @@
             getPaiement.forEach((p) => {
                 ajouterPaiement(p.MoyenPaiement, p.Montant)
             })
+        })
+        $("#Facture_CommandeFacturerID").change(function(){
+            console.log($( this ).val())
+            let index = MontantsJson.findIndex(element => element.Id == $( this ).val());
+            if(index != -1){
+                $("#montant").val(MontantsJson[index].Montant)
+            }
         })
 
         $("#FactureAPayer").val(1)
