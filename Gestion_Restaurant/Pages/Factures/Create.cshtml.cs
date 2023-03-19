@@ -54,7 +54,15 @@ namespace Gestion_Restaurant.Pages.Factures
         public async Task<IActionResult> OnPostAsync()
         {
             PaiementsJson = Request.Form["Facture_Paiements"];
-
+            MontantsJson = System.Text.Json.JsonSerializer.Serialize(_context.Commande
+                .Include(c => c.CommandeProduits)
+                .Select(c => new Commande
+                {
+                    Id = c.Id,
+                    CommandeProduits = c.CommandeProduits.Select(p => new Produit { Prix = p.Prix }).ToList()
+                })
+                .ToList());
+            //On recharche le json pour le bon fonctionnement si retour à page()
             if (!ModelState.IsValid || PaiementsJson == null)
             {
                 ViewData["CommandeFacturerID"] = new SelectList(_context.Commande.Include(c => c.CommandeProduits), "Id", "CommandeInfos");
