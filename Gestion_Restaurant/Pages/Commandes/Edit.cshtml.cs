@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Gestion_Restaurant.Data;
 using Gestion_Restaurant.Models;
 using Microsoft.Extensions.Primitives;
+using Newtonsoft.Json;
 
 namespace Gestion_Restaurant.Pages.Commandes
 {
@@ -62,11 +63,41 @@ namespace Gestion_Restaurant.Pages.Commandes
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
+            }
+            var commande = await _context.Commande
+                .Include(c => c.CommandePreparerPar)
+                .Include(c => c.CommandeProduits)
+                .Include(c => c.CommandeTables)
+                .Include(c => c.CommandeServiPar)
+                .Include(c => c.FactureRattacher.PaiementCommande)
+                .FirstOrDefaultAsync(c => c.Id == id);
+
+            commande.Statut = Commande.Statut;
+            if (commande != null)
+            {
+                Commande = commande;
+
+                foreach (Barman b in Commande.CommandePreparerPar)
+                {
+                    Commande.CommandePreparerPar.Remove(b);
+                }
+                foreach (Table t in Commande.CommandeTables)
+                {
+                    Commande.CommandeTables.Remove(t);
+                }
+                foreach (Serveur s in Commande.CommandeServiPar)
+                {
+                    Commande.CommandeServiPar.Remove(s);
+                }
+                foreach (Produit p in Commande.CommandeProduits)
+                {
+                    Commande.CommandeProduits.Remove(p);
+                }
             }
             foreach (int ServeurId in ServeursIds)
             {

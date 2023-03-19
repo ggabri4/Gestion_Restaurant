@@ -51,11 +51,19 @@ namespace Gestion_Restaurant.Pages.Factures
             {
                 return NotFound();
             }
-            var facture = await _context.Facture.FindAsync(id);
+            var facture = await _context.Facture
+                .Include(f => f.PaiementCommande)
+                .FirstOrDefaultAsync(f => f.Id == id);
 
             if (facture != null)
             {
                 Facture = facture;
+
+                foreach (Paiement p in Facture.PaiementCommande)
+                {
+                    _context.Paiement.Remove(p);
+                }
+
                 _context.Facture.Remove(Facture);
                 await _context.SaveChangesAsync();
             }

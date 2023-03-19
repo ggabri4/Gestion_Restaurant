@@ -61,7 +61,7 @@ namespace Gestion_Restaurant.Pages.Commandes
                 .Include(c => c.CommandeProduits)
                 .Include(c => c.CommandeTables)
                 .Include(c => c.CommandeServiPar)
-                .Include(c => c.FactureRattacher)
+                .Include(c => c.FactureRattacher.PaiementCommande)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
             if (commande != null)
@@ -86,6 +86,10 @@ namespace Gestion_Restaurant.Pages.Commandes
                 }
                 if(Commande.FactureRattacher != null)
                 {
+                    foreach (Paiement p in Commande.FactureRattacher.PaiementCommande)
+                    {
+                        _context.Paiement.Remove(p);
+                    }
                     _context.Facture.Remove(Commande.FactureRattacher);
                 }
                 _context.Commande.Remove(Commande);
