@@ -28,7 +28,9 @@ namespace Gestion_Restaurant.Pages.Serveurs
                 return NotFound();
             }
 
-            var serveur = await _context.Serveur.FirstOrDefaultAsync(m => m.Id == id);
+            var serveur = await _context.Serveur
+                .Include(s => s.CommandeEtablit)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (serveur == null)
             {
                 return NotFound();

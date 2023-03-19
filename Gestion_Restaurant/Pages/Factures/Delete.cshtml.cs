@@ -29,7 +29,10 @@ namespace Gestion_Restaurant.Pages.Factures
                 return NotFound();
             }
 
-            var facture = await _context.Facture.FirstOrDefaultAsync(m => m.Id == id);
+            var facture = await _context.Facture
+                .Include(f => f.CommandeFacturer)
+                .Include(f => f.PaiementCommande)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (facture == null)
             {

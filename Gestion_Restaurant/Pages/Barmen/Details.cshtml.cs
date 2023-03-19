@@ -28,7 +28,9 @@ namespace Gestion_Restaurant.Pages.Barmen
                 return NotFound();
             }
 
-            var barman = await _context.Barman.FirstOrDefaultAsync(m => m.Id == id);
+            var barman = await _context.Barman
+                .Include(b => b.PrepareCommande)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (barman == null)
             {
                 return NotFound();

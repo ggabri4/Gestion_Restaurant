@@ -31,7 +31,13 @@ namespace Gestion_Restaurant.Pages.Commandes
                 return NotFound();
             }
 
-            var commande = await _context.Commande.FirstOrDefaultAsync(m => m.Id == id);
+            var commande = await _context.Commande
+                .Include(c => c.CommandeServiPar)
+                .Include(c => c.CommandePreparerPar)
+                .Include(c => c.CommandeProduits)
+                .Include(c => c.CommandeTables)
+                .Include(c => c.FactureRattacher.PaiementCommande)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (commande == null)
             {

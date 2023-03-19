@@ -11,9 +11,9 @@ namespace Gestion_Restaurant.Models
         public int NbPlace { get; set; }
 
         //Clé étrangère vers la commande rattaché
-        [Display(Name = "Commande Rattachée")]
+        [Display(Name = "Commande associée")]
         public int? CommandeRattacheID { get; set; }
-        [Display(Name = "Commande Rattachée")]
+        [Display(Name = "Commande associée")]
         public Commande? CommandeRattache { get; set; }
 
         [Display(Name = "Nom complet")]

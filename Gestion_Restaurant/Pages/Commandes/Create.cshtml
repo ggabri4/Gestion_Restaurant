@@ -27,15 +27,30 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Barmen</label>
-                <select asp-for="BarmenIds" class="form-control" asp-items="ViewBag.BarmanId"></select>
+                <select asp-for="BarmenIds" class="form-control" asp-items="ViewBag.BarmanId">
+                    @if (!Enumerable.Any(ViewBag.BarmanId))
+                    {
+                        <option value="" disabled>Aucun barman disponible</option>
+                    }
+                </select>
             </div>
             <div class="form-group">
                 <label class="control-label">Serveurs</label>
-                <select asp-for="ServeursIds" class="form-control" asp-items="ViewBag.ServeurId"></select>
+                <select asp-for="ServeursIds" class="form-control" asp-items="ViewBag.ServeurId">
+                    @if (!Enumerable.Any(ViewBag.ServeurId))
+                    {
+                        <option value="" disabled>Aucun serveur disponible</option>
+                    }
+                </select>
             </div>
             <div class="form-group">
                 <label class="control-label">Table</label>
-                <select asp-for="TablesIds" class="form-control" asp-items="ViewBag.TableId"></select>
+                <select asp-for="TablesIds" class="form-control" asp-items="ViewBag.TableId">
+                    @if (!Enumerable.Any(ViewBag.TableId))
+                    {
+                        <option value="" disabled>Aucune table disponible</option>
+                    }
+                </select>
             </div>
             
             <div class="form-group mt-3">

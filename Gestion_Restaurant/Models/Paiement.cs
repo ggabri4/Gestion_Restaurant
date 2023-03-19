@@ -15,6 +15,16 @@ namespace Gestion_Restaurant.Models
         public double? Montant { get; set; }
 
         //clé étrangère
+        [Display(Name = "Facture")]
         public Facture? FactureAPayer { get; set; }
+
+        [Display(Name = "Informations")]
+        public string PaiementInfos
+        {
+            get
+            {
+                return "Paiement n°" + Id + " ( " + Montant + "€ par " + MoyenPaiement + " )";
+            }
+        }
     }
 }

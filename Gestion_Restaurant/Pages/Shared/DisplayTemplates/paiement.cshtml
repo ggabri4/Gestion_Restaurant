@@ -1,0 +1,2 @@
+﻿@model IEnumerable<Gestion_Restaurant.Models.Paiement>
+@Html.Raw(string.Join("<br/>", Model.Select(p => p.PaiementInfos)))

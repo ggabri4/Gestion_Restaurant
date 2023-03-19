@@ -16,6 +16,7 @@ namespace Gestion_Restaurant.Models
         // Clé étrangère vers la formation suivie
         [Display(Name = "Commande Rattachée")]
         public int? CommandeEtablitID { get; set; }
+        [Display(Name = "Commande associée")]
         public Commande? CommandeEtablit { get; set; }
 
         [Display(Name = "Nom complet")]
