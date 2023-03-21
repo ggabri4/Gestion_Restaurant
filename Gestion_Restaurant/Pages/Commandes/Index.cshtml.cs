@@ -33,7 +33,9 @@ namespace Gestion_Restaurant.Pages.Commandes
             {
                 e = e.Where(s => s.Statut.Contains(SearchString));
             }
-            Commande = await e.ToListAsync();
+            Commande = await e.Include(c => c.CommandeServiPar)
+                            .Include(c => c.CommandePreparerPar)
+                            .ToListAsync();
         }
     }
 }

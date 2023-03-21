@@ -1,6 +1,9 @@
 ﻿@page
 @model Gestion_Restaurant.Pages.Factures.DetailsModel
 
+@section head{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+}
 @{
     ViewData["Title"] = "Details";
 }
@@ -32,6 +35,49 @@
     </dl>
 </div>
 <div>
+    <button class="btn btn-info" onclick="generatePDF()">Editer la facture</button>
     <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@Model.Facture?.Id">Modifier</a>
     <a class="btn btn-secondary" asp-page="./Index">Retour</a>
 </div>
+@{
+    var TableIds = System.Text.Json.JsonSerializer.Serialize(Model.tableIds);
+    var Produits = System.Text.Json.JsonSerializer.Serialize(Model.Produits);
+    var Facture = System.Text.Json.JsonSerializer.Serialize(Model.FactureLight);
+}
+@section Scripts {
+    <script>
+        var tableIds = @Html.Raw(TableIds);
+        var Produits = @Html.Raw(Produits);
+        var Facture = @Html.Raw(Facture);
+        console.log(tableIds)
+        console.log(Produits)
+        console.log(Facture)
+        function generatePDF() {
+            const date = new Date();
+            var compteur = 0;
+
+            var pdf = new jsPDF({
+                orientation: 'p',
+                unit: 'mm',
+                format: 'a5',
+                putOnlyUsedFonts: true
+            });
+            pdf.text("Écogourmet", 60, 20);
+            pdf.setFontSize(10);
+            pdf.text("tel: 04.66.60.44.05", 60, 25);
+            pdf.text("TABLE(S) "+ tableIds.toString(), 20, 40);
+            pdf.text(date.toString(), 20, 50);
+            pdf.text("Produit(s) ", 20, 60);
+            pdf.text("Prix ", 120, 62);
+            Produits.forEach((produit)=>{
+                pdf.text(produit.Description, 20, 70+compteur*5);
+                pdf.text(produit.Prix.toString(), 120, 70+compteur*5);
+                compteur++;
+            })
+            pdf.text("TOTAL EUR", 80, 80 + compteur * 5);
+            pdf.text(Facture.Montant.toString(), 120, 80 + compteur * 5);
+            pdf.text("A BIENTOT", 60, 90 + compteur * 5);
+            pdf.save('facture.pdf');
+        }
+    </script>
+}

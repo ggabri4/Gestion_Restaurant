@@ -22,6 +22,9 @@ namespace Gestion_Restaurant.Pages.Factures
         }
 
       public Facture Facture { get; set; }
+      public Facture FactureLight { get; set; }
+        public List<int> tableIds { get; set; }
+      public List<Produit> Produits { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -29,17 +32,36 @@ namespace Gestion_Restaurant.Pages.Factures
             {
                 return NotFound();
             }
+            var factureLight = await _context.Facture
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             var facture = await _context.Facture
                 .Include(f => f.CommandeFacturer)
                 .Include(f => f.PaiementCommande)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
+            tableIds = _context.Facture
+                .Include(f => f.CommandeFacturer)
+                .Where(m => m.Id == id)
+                .SelectMany(f => f.CommandeFacturer.CommandeTables.Select(ct => ct.Id))
+                .Distinct()
+                .ToList();
+
+            Produits = _context.Facture
+                .Include(f => f.CommandeFacturer.CommandeProduits)
+                .Where(m => m.Id == id)
+                .SelectMany(f => f.CommandeFacturer.CommandeProduits)
+                .ToList();
+
+
             if (facture == null)
             {
                 return NotFound();
             }
             else 
             {
+                FactureLight = factureLight;
                 Facture = facture;
             }
             return Page();
